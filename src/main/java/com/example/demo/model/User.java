@@ -22,7 +22,6 @@ import java.util.Set;
                 "email"
         })
 })
-@Data
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

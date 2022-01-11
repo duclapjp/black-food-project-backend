@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 @Entity
 @Table
-
 public class GeneralStatus {
 
     @Id
@@ -41,4 +40,5 @@ public class GeneralStatus {
     public void setName(String name) {
         this.name = name;
     }
+
 }
