@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.response.ResponMessage;
 import com.example.demo.model.Food;
 import com.example.demo.service.extend.IFoodService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,14 +27,14 @@ public class FoodController {
         if (foodList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(foodList, HttpStatus.OK);
+        return new ResponseEntity<>(foodService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Food> findById(@PathVariable Long id) {
+    public ResponseEntity<?> findById(@PathVariable Long id) {
         Optional<Food> foodOptional = foodService.findById(id);
         if (!foodOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ResponMessage("Không tìm thấy"),HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(foodOptional.get(), HttpStatus.OK);
     }
@@ -43,10 +45,10 @@ public class FoodController {
     }
 
     @PutMapping
-    public ResponseEntity<Food> update(@RequestBody Food food) {
+    public ResponseEntity<?> update(@RequestBody Food food) {
         Optional<Food> foodOptional = foodService.findById(food.getId());
         if (!foodOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+          return new ResponseEntity<>(new ResponMessage("Không tìm thấy"), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(foodService.save(food), HttpStatus.OK);
     }
@@ -55,9 +57,9 @@ public class FoodController {
     public ResponseEntity<?> remove(@PathVariable Long id) {
         Optional<Food> foodOptional = foodService.findById(id);
         if (!foodOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ResponMessage("Không tìm thấy"),HttpStatus.NOT_FOUND);
         }
         foodService.remove(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(new ResponMessage("Đã Xóa"),HttpStatus.OK);
     }
 }

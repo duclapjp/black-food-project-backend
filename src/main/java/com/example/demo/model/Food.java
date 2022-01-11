@@ -29,4 +29,6 @@ public class Food {
 
     @ManyToOne(targetEntity = FoodOrder.class)
     private FoodOrder foodOrder;
+
+
 }
