@@ -3,21 +3,40 @@ package com.example.demo.dto.request;
 import java.util.Set;
 
 public class SignUpForm {
+
+
     private String name;
     private String username;
     private String email;
     private String password;
+    private String avatar;
     private Set<String> roles;
 
     public SignUpForm() {
     }
-
-    public SignUpForm(String name, String username, String email, String password, Set<String> roles) {
+    public SignUpForm(String name, String username, String email, String password, String avatar, Set<String> roles) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.avatar = avatar;
         this.roles = roles;
+    }
+
+    public SignUpForm(String name, String username, String email, String password, String avatar) {
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.avatar = avatar;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getName() {
@@ -59,4 +78,5 @@ public class SignUpForm {
     public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
+
 }

@@ -42,4 +42,9 @@ public class FoodOrderService implements IFoodOrderService {
     public List<FoodOrder> findAllByUser_Id(Long id) {
         return foodOrderRepository.findAllByUser_Id(id);
     }
+
+    @Override
+    public List<FoodOrder> findFoodOrderByRestaurant_Id(Long id) {
+        return foodOrderRepository.findFoodOrderByRestaurant_Id(id);
+    }
 }

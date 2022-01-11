@@ -12,9 +12,16 @@ public class FoodOrder {
     private LocalDateTime time;
     private Double totalPrice;
     private String note;
-    private Long statusId;
-    private Long userId;
 
+    @ManyToOne(targetEntity = GeneralStatus.class)
+    private GeneralStatus generalStatus;
+
+    @ManyToOne(targetEntity = User.class)
+    private User user;
+
+    @ManyToOne(targetEntity =  Restaurant.class)
+    private Restaurant restaurant;
+//    private Long restaurantId;
 
     public FoodOrder() {
     }
@@ -53,19 +60,27 @@ public class FoodOrder {
     }
 
 
-    public Long getStatusId() {
-        return statusId;
+    public GeneralStatus getGeneralStatus() {
+        return generalStatus;
     }
 
-    public void setStatusId(Long statusId) {
-        this.statusId = statusId;
+    public void setGeneralStatus(GeneralStatus generalStatus) {
+        this.generalStatus = generalStatus;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 }

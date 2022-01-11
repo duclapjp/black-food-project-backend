@@ -17,8 +17,7 @@ public class Message {
 
     private LocalDateTime time;
 
-    @OneToOne(targetEntity = GeneralStatus.class)
-    @JoinColumn(name = "status_id")
+    @ManyToOne(targetEntity = GeneralStatus.class)
     private GeneralStatus status;
 
     @ManyToOne(targetEntity = User.class)

@@ -1,7 +1,5 @@
 package com.example.demo.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity
@@ -13,8 +11,7 @@ public class Coupon {
     private Long id;
     private String name;
 
-    @OneToOne(targetEntity = GeneralStatus.class)
-    @JoinColumn(name = "status_id")
+    @ManyToOne(targetEntity = GeneralStatus.class)
     private GeneralStatus status;
 
     @ManyToOne(targetEntity = Restaurant.class)

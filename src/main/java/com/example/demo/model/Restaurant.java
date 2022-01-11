@@ -22,8 +22,13 @@ public class Restaurant {
 
     private Double revenue;
 
-    @OneToOne(targetEntity = GeneralStatus.class)
-    @JoinColumn(name = "status_id")
+    private Long userId;
+
+
+    @OneToMany
+    List<FoodOrder> foodOrderList;
+
+    @ManyToOne(targetEntity = GeneralStatus.class)
     private GeneralStatus status;
 
     @OneToMany
@@ -54,6 +59,14 @@ public class Restaurant {
         this.status = status;
         this.couponList = couponList;
         this.foodList = foodList;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Long getId() {
@@ -118,5 +131,13 @@ public class Restaurant {
 
     public void setFoodList(List<Food> foodList) {
         this.foodList = foodList;
+    }
+
+    public List<FoodOrder> getFoodOrderList() {
+        return foodOrderList;
+    }
+
+    public void setFoodOrderList(List<FoodOrder> foodOrderList) {
+        this.foodOrderList = foodOrderList;
     }
 }
