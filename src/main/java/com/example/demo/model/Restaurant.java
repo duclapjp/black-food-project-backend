@@ -7,7 +7,6 @@ import java.util.List;
 
 @Entity
 @Table
-@Data
 public class Restaurant {
 
 
@@ -33,4 +32,91 @@ public class Restaurant {
     @OneToMany
     List<Food>foodList;
 
+    public Restaurant() {
+    }
+
+    public Restaurant(Long id, String name, String address, String claim, Double revenue, GeneralStatus status, List<Coupon> couponList, List<Food> foodList) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.claim = claim;
+        this.revenue = revenue;
+        this.status = status;
+        this.couponList = couponList;
+        this.foodList = foodList;
+    }
+
+    public Restaurant(String name, String address, String claim, Double revenue, GeneralStatus status, List<Coupon> couponList, List<Food> foodList) {
+        this.name = name;
+        this.address = address;
+        this.claim = claim;
+        this.revenue = revenue;
+        this.status = status;
+        this.couponList = couponList;
+        this.foodList = foodList;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getClaim() {
+        return claim;
+    }
+
+    public void setClaim(String claim) {
+        this.claim = claim;
+    }
+
+    public Double getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(Double revenue) {
+        this.revenue = revenue;
+    }
+
+    public GeneralStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(GeneralStatus status) {
+        this.status = status;
+    }
+
+    public List<Coupon> getCouponList() {
+        return couponList;
+    }
+
+    public void setCouponList(List<Coupon> couponList) {
+        this.couponList = couponList;
+    }
+
+    public List<Food> getFoodList() {
+        return foodList;
+    }
+
+    public void setFoodList(List<Food> foodList) {
+        this.foodList = foodList;
+    }
 }

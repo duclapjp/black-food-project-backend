@@ -1,15 +1,14 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.FoodOrder;
-import com.example.demo.model.GeneralStatus;
 import com.example.demo.service.extend.IFoodOrderService;
-import com.example.demo.service.extend.IGeneralStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
@@ -42,4 +41,10 @@ public class FoodOrderController {
         foodOrderService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @GetMapping("/orderList/{id}")
+    public ResponseEntity<List<FoodOrder>> findAllFoodOrderByUser_Id(@PathVariable Long id){
+        List<FoodOrder> foodOrderList  = foodOrderService.findAllByUser_Id(id);
+        return new ResponseEntity<>(foodOrderList,HttpStatus.OK);
+    }
+
 }
