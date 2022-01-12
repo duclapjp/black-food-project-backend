@@ -64,13 +64,10 @@ public class User {
 
     private Long point;
 
-    @OneToOne(targetEntity = GeneralStatus.class)
-    @JoinColumn(name = "status_id")
+    @ManyToOne(targetEntity = GeneralStatus.class)
     private GeneralStatus status;
 
-    @OneToOne
-    @JoinColumn(name = "restaurant_id")
-    private Restaurant restaurant;
+    private Long restaurantId;
 
     @OneToMany
     private List<FoodOrder> foodOrderList;
@@ -81,7 +78,7 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
-    joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
+            joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     Set<Role> roles = new HashSet<>();
 
 
@@ -96,7 +93,8 @@ public class User {
         this.password = password;
     }
 
-    public User(String name, String username, String email, String password, String avatar, LocalDate dob, String phone, String address, Double amount, Long point, GeneralStatus status, Restaurant restaurant) {
+    public User(Long id, String name, String username, String email, String password, String avatar, LocalDate dob, String phone, String address, Double amount, Long point, GeneralStatus status, Long restaurantId, List<FoodOrder> foodOrderList, List<Message> messageList, Set<Role> roles) {
+        this.id = id;
         this.name = name;
         this.username = username;
         this.email = email;
@@ -108,7 +106,10 @@ public class User {
         this.amount = amount;
         this.point = point;
         this.status = status;
-        this.restaurant = restaurant;
+        this.restaurantId = restaurantId;
+        this.foodOrderList = foodOrderList;
+        this.messageList = messageList;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -207,12 +208,12 @@ public class User {
         this.status = status;
     }
 
-    public Restaurant getRestaurant() {
-        return restaurant;
+    public Long getRestaurantId() {
+        return restaurantId;
     }
 
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
+    public void setRestaurantId(Long restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
     public List<FoodOrder> getFoodOrderList() {

@@ -34,4 +34,14 @@ public class FoodService implements IFoodService {
     public void remove(Long id) {
         foodRepository.deleteById(id);
     }
+
+    @Override
+    public List<Food> findAllFoodByrestaurantId(Long restaurantId) {
+        return foodRepository.findAllByRestaurantId(restaurantId);
+    }
+
+    @Override
+    public void deleteFoodByRestaurantId(Long restaurantId, Long foodId) {
+        foodRepository.deleteFoodByRestaurantId(restaurantId, foodId);
+    }
 }

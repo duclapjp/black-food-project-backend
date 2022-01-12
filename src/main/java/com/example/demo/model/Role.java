@@ -15,9 +15,7 @@ public class Role {
     @Column(length = 60)
     private RoleName name;
 
-
-    @OneToOne(targetEntity = GeneralStatus.class)
-    @JoinColumn(name = "status_id")
+    @ManyToOne(targetEntity = GeneralStatus.class)
     private GeneralStatus status;
 
     public Role() {

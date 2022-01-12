@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import com.example.demo.dto.response.ResponMessage;
 import com.example.demo.model.Food;
 import com.example.demo.service.extend.IFoodService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,4 +61,24 @@ public class FoodController {
         foodService.remove(id);
         return new ResponseEntity<>(new ResponMessage("Đã Xóa"),HttpStatus.OK);
     }
+
+    @GetMapping("/{restaurantId}")
+    public ResponseEntity<List<Food>> showAllByRestaurantId(@PathVariable Long restaurantId) {
+        List<Food> restaurantFoodList = foodService.findAllFoodByrestaurantId(restaurantId);
+        if (restaurantFoodList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(foodService.findAllFoodByrestaurantId(restaurantId), HttpStatus.OK);
+    }
+
+@DeleteMapping("/{restaurantId}/{foodId}")
+    public ResponseEntity<?> deleteFoodByRestaurantId(@PathVariable Long restaurantId, @PathVariable Long foodId) {
+    Optional<Food> foodOptional = foodService.findById(foodId);
+    if (!foodOptional.isPresent()) {
+        return new ResponseEntity<>(new ResponMessage("Không tìm thấy"),HttpStatus.NOT_FOUND);
+    }
+    foodService.deleteFoodByRestaurantId(restaurantId,foodId);
+    return new ResponseEntity<>(new ResponMessage("Đã Xóa món"),HttpStatus.OK);
+}
+
 }

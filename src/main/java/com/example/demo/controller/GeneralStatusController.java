@@ -1,10 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.GeneralStatus;
-import com.example.demo.model.Message;
+
 import com.example.demo.service.extend.IGeneralStatusService;
-import com.example.demo.service.impl.GeneralStatusService;
-import com.example.demo.service.impl.MessageService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
