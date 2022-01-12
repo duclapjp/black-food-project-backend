@@ -1,6 +1,7 @@
 package com.example.demo.model;
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name="food_order")
@@ -15,6 +16,9 @@ public class FoodOrder {
 
     @ManyToOne(targetEntity = GeneralStatus.class)
     private GeneralStatus generalStatus;
+
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Food.class, cascade = CascadeType.ALL)
+    private List<Food> food;
 
     @ManyToOne(targetEntity = User.class)
     private User user;
