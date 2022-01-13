@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,7 +9,6 @@ import java.util.List;
 @Entity
 @Table
 public class Restaurant {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +28,7 @@ public class Restaurant {
     @OneToMany
     List<FoodOrder> foodOrderList;
 
+    @JsonIgnore
     @ManyToOne(targetEntity = GeneralStatus.class)
     private GeneralStatus status;
 

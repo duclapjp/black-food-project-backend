@@ -16,6 +16,7 @@ public class FoodOrder {
     private Double totalPrice;
     private String note;
 
+    @JsonIgnore
     @ManyToOne(targetEntity = GeneralStatus.class)
     private GeneralStatus generalStatus;
 
@@ -23,9 +24,11 @@ public class FoodOrder {
     @OneToMany
     private List<Food> food;
 
+    @JsonIgnore
     @ManyToOne(targetEntity = User.class)
     private User user;
 
+    @JsonIgnore
     @ManyToOne(targetEntity =  Restaurant.class)
     private Restaurant restaurant;
 //    private Long restaurantId;
