@@ -42,4 +42,9 @@ public class FoodService implements IFoodService {
     public List<Food> showAllFoodByRestaurantId(Long restaurantId) {
         return foodRepository.findAllByRestaurantId(restaurantId);
     }
+
+    @Override
+    public Optional<Food> findFoodByFoodName(String foodName) {
+        return foodRepository.findByName(foodName);
+    }
 }

@@ -70,4 +70,13 @@ public class FoodController {
         }
         return new ResponseEntity<>(foodService.showAllFoodByRestaurantId(restaurantId), HttpStatus.OK);
     }
+
+    @GetMapping("/findByName/{foodName}")
+    public ResponseEntity<?> findById(@PathVariable String foodName) {
+        Optional<Food> food = foodService.findFoodByFoodName(foodName);
+        if (!food.isPresent()) {
+            return new ResponseEntity<>(new ResponMessage("Không tìm thấy"),HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(food, HttpStatus.OK);
+    }
 }

@@ -10,7 +10,6 @@ import java.util.List;
 @Table
 public class Restaurant {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
