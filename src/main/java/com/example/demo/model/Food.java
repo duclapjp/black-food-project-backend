@@ -1,7 +1,7 @@
 package com.example.demo.model;
 
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -24,9 +24,11 @@ public class Food {
 
     private String image;
 
+    @JsonIgnore
     @ManyToOne(targetEntity = Restaurant.class)
     private Restaurant restaurant;
 
+    @JsonIgnore
     @ManyToOne(targetEntity = FoodOrder.class)
     private FoodOrder foodOrder;
 

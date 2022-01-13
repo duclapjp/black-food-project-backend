@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,13 +18,15 @@ public class Message {
 
     private LocalDateTime time;
 
+    @JsonIgnore
     @ManyToOne(targetEntity = GeneralStatus.class)
     private GeneralStatus status;
 
+    @JsonIgnore
     @ManyToOne(targetEntity = User.class)
     private User sender;
 
-
+    @JsonIgnore
     @ManyToOne(targetEntity = User.class)
     private User receiver;
 

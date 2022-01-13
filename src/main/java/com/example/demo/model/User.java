@@ -64,6 +64,7 @@ public class User {
 
     private Long point;
 
+    @JsonIgnore
     @ManyToOne(targetEntity = GeneralStatus.class)
     private GeneralStatus status;
 
