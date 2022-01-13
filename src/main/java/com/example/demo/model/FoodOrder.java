@@ -1,4 +1,6 @@
 package com.example.demo.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,7 +19,8 @@ public class FoodOrder {
     @ManyToOne(targetEntity = GeneralStatus.class)
     private GeneralStatus generalStatus;
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = Food.class, cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany
     private List<Food> food;
 
     @ManyToOne(targetEntity = User.class)
@@ -86,5 +89,13 @@ public class FoodOrder {
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }
+
+    public List<Food> getFood() {
+        return food;
+    }
+
+    public void setFood(List<Food> food) {
+        this.food = food;
     }
 }
