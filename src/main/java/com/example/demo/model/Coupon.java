@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,9 +13,12 @@ public class Coupon {
     private Long id;
     private String name;
 
+    @JsonIgnore
     @ManyToOne(targetEntity = GeneralStatus.class)
     private GeneralStatus status;
 
+
+    @JsonIgnore
     @ManyToOne(targetEntity = Restaurant.class)
     private Restaurant restaurant;
 
