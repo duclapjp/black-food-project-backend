@@ -22,26 +22,38 @@ public class FoodController {
     private IFoodService foodService;
 
     @GetMapping
-    public ResponseEntity<List<Food>> findAll(){
+    public ResponseEntity<List<Food>> findAll() {
         return new ResponseEntity<>(foodService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Food> findById(@PathVariable Long id){
-        return new ResponseEntity<>(foodService.findById(id).get(),HttpStatus.OK);
+    public ResponseEntity<Food> findById(@PathVariable Long id) {
+        return new ResponseEntity<>(foodService.findById(id).get(), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Food> save(@RequestBody Food food){
-        return new ResponseEntity<>(foodService.save(food),HttpStatus.CREATED);
+    public ResponseEntity<Food> save(@RequestBody Food food) {
+        return new ResponseEntity<>(foodService.save(food), HttpStatus.CREATED);
     }
+
     @PutMapping
-    public ResponseEntity<Food> update( @RequestBody Food food){
-        return new ResponseEntity<>(foodService.save(food),HttpStatus.OK);
+    public ResponseEntity<Food> update(@RequestBody Food food) {
+        return new ResponseEntity<>(foodService.save(food), HttpStatus.OK);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> remove(@PathVariable Long id) {
         foodService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/restaurant/{id}")
+    public ResponseEntity<List<Food>> findByRestaurantId(@PathVariable Long id) {
+        return new ResponseEntity<>(foodService.findAllByRestaurantId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/search/{id}/{name}")
+    public ResponseEntity<List<Food>> findByName(@PathVariable Long id, @PathVariable String name) {
+        return new ResponseEntity<>(foodService.findAllByRestaurant_IdAndNameContaining(id, name), HttpStatus.OK);
     }
 }
