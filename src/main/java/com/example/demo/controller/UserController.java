@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 import com.example.demo.dto.response.ResponMessage;
 import com.example.demo.model.ChangeAvatar;
+import com.example.demo.model.Purchase;
 import com.example.demo.model.User;
 import com.example.demo.security.userprincal.UserDetailService;
 import com.example.demo.service.extend.IUserService;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 @RequestMapping("/users")
 public class UserController {
     @Autowired
@@ -43,6 +44,8 @@ public class UserController {
         return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
     }
 
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<User> deleteById(@PathVariable Long id) {
         userService.remove(id);
@@ -61,5 +64,13 @@ public class UserController {
             return new ResponseEntity<>(new ResponMessage("Success!"), HttpStatus.OK);
         }
 
+    }
+
+    @PutMapping("/purchase")
+    public ResponseEntity<?>purchase(@RequestBody Purchase purchase){
+        User currentUser = userDetailService.getCurrentUser();
+        currentUser.setAmount(currentUser.getAmount()+ purchase.getAmount());
+        userService.save(currentUser);
+        return new ResponseEntity<>(currentUser,HttpStatus.OK);
     }
 }
