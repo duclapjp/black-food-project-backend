@@ -1,6 +1,10 @@
 package com.example.demo.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="food_order")
@@ -15,6 +19,11 @@ public class FoodOrder {
 
     @ManyToOne(targetEntity = GeneralStatus.class)
     private GeneralStatus generalStatus;
+
+
+    @OneToMany(fetch = FetchType.EAGER, targetEntity = Food.class)
+//    @Column( unique = false, nullable = false)
+    private List<Food> food = new ArrayList<>();
 
     @ManyToOne(targetEntity = User.class)
     private User user;
@@ -82,5 +91,13 @@ public class FoodOrder {
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }
+
+    public List<Food> getFood() {
+        return food;
+    }
+
+    public void setFood(List<Food> food) {
+        this.food = food;
     }
 }

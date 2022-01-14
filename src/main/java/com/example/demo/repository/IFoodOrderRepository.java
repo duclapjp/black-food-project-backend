@@ -10,8 +10,7 @@ import java.util.List;
 @Repository
 public interface IFoodOrderRepository  extends JpaRepository<FoodOrder,Long> {
 
-    @Query(value = "select fo.*,u.name as name from food_order fo join users u on fo.user_id = u.id where fo.user_id = :id ;",nativeQuery = true)
-    List<FoodOrder> findAllByUser_Id(@Param("id") Long id);
+    List<FoodOrder> findAllByUser_Id(Long id);
 
 //    @Query(value = "select fo.*,r.name as restaurantName, r.address as restaurantAddress from food_order fo join restaurant r on fo.restaurant_id = r.id where r.id = :id ;",nativeQuery = true)
 //    List<FoodOrder> findFoodOrderByRestaurant_Id(@Param("id") Long id);

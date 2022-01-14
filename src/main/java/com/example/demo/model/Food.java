@@ -7,7 +7,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "food")
 public class Food {
 
     @Id
@@ -24,10 +24,10 @@ public class Food {
 
     private String image;
 
-    @ManyToOne(targetEntity = Restaurant.class)
+    @ManyToOne(fetch = FetchType.EAGER,targetEntity = Restaurant.class)
     private Restaurant restaurant;
 
-    @ManyToOne(targetEntity = FoodOrder.class)
+    @ManyToOne(fetch = FetchType.EAGER,targetEntity = FoodOrder.class)
     private FoodOrder foodOrder;
 
     public Food() {
