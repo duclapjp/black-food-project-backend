@@ -3,6 +3,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,9 +20,10 @@ public class FoodOrder {
     @ManyToOne(targetEntity = GeneralStatus.class)
     private GeneralStatus generalStatus;
 
-    @JsonIgnore
-    @OneToMany
-    private List<Food> food;
+
+    @OneToMany(fetch = FetchType.EAGER, targetEntity = Food.class)
+//    @Column( unique = false, nullable = false)
+    private List<Food> food = new ArrayList<>();
 
     @ManyToOne(targetEntity = User.class)
     private User user;

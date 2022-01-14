@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -28,6 +29,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<User> findById(@PathVariable Long id) {
+        Optional<User> userOptional = userService.findById(id);
         return new ResponseEntity<>(userService.findById(id).get(), HttpStatus.OK);
     }
 
