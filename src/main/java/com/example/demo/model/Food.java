@@ -3,6 +3,7 @@ package com.example.demo.model;
 
 
 import lombok.Data;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 
@@ -13,6 +14,9 @@ public class Food {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NaturalId
+    private Long code;
 
     private String name;
 
@@ -33,7 +37,13 @@ public class Food {
     public Food() {
     }
 
-    public Food(String name, Double price, Long quantity, String description, String image, Restaurant restaurant, FoodOrder foodOrder) {
+    public Food(Long id) {
+        this.id = id;
+    }
+
+
+    public Food(Long code, String name, Double price, Long quantity, String description, String image, Restaurant restaurant, FoodOrder foodOrder) {
+        this.code = code;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
@@ -43,8 +53,9 @@ public class Food {
         this.foodOrder = foodOrder;
     }
 
-    public Food(Long id, String name, Double price, Long quantity, String description, String image, Restaurant restaurant, FoodOrder foodOrder) {
+    public Food(Long id, Long code, String name, Double price, Long quantity, String description, String image, Restaurant restaurant, FoodOrder foodOrder) {
         this.id = id;
+        this.code = code;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
@@ -116,5 +127,13 @@ public class Food {
 
     public void setFoodOrder(FoodOrder foodOrder) {
         this.foodOrder = foodOrder;
+    }
+
+    public Long getCode() {
+        return code;
+    }
+
+    public void setCode(Long code) {
+        this.code = code;
     }
 }

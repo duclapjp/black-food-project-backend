@@ -26,7 +26,7 @@ public class FoodOrder {
 //    @Column( unique = false, nullable = false)
     private List<Food> food = new ArrayList<>();
 
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne(fetch = FetchType.EAGER,targetEntity = User.class)
     @JsonBackReference
     private User user;
 

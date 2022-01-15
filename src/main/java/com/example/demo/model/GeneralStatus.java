@@ -31,6 +31,9 @@ public class GeneralStatus {
     public GeneralStatus() {
     }
 
+    public GeneralStatus(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;

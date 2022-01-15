@@ -71,7 +71,6 @@ public class User {
     private Long restaurantId;
 
     @OneToMany(cascade = {CascadeType.ALL})
-    @JsonBackReference
     private List<FoodOrder> foodOrderList;
 
     @OneToMany
