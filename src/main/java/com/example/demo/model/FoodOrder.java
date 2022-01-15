@@ -1,4 +1,5 @@
 package com.example.demo.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class FoodOrder {
     private List<Food> food = new ArrayList<>();
 
     @ManyToOne(targetEntity = User.class)
+    @JsonBackReference
     private User user;
 
     @ManyToOne(targetEntity =  Restaurant.class)
@@ -35,6 +37,15 @@ public class FoodOrder {
     public FoodOrder() {
     }
 
+    public FoodOrder(LocalDateTime time, Double totalPrice, String note, GeneralStatus generalStatus, List<Food> food, User user, Restaurant restaurant) {
+        this.time = time;
+        this.totalPrice = totalPrice;
+        this.note = note;
+        this.generalStatus = generalStatus;
+        this.food = food;
+        this.user = user;
+        this.restaurant = restaurant;
+    }
 
     public Long getId() {
         return id;

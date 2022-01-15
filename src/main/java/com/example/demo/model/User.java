@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.NaturalId;
@@ -69,7 +70,8 @@ public class User {
 
     private Long restaurantId;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
+    @JsonBackReference
     private List<FoodOrder> foodOrderList;
 
     @OneToMany

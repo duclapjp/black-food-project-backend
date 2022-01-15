@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 import com.example.demo.dto.response.ResponMessage;
 import com.example.demo.model.ChangeAvatar;
+import com.example.demo.model.FoodOrder;
 import com.example.demo.model.Purchase;
 import com.example.demo.model.User;
 import com.example.demo.security.userprincal.UserDetailService;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,5 +74,14 @@ public class UserController {
         currentUser.setAmount(currentUser.getAmount()+ purchase.getAmount());
         userService.save(currentUser);
         return new ResponseEntity<>(currentUser,HttpStatus.OK);
+    }
+    @PutMapping("/addOrder")
+    public ResponseEntity<?> addOrder(@RequestBody FoodOrder foodOrder){
+        List<FoodOrder> foodOrderList = new ArrayList<>();
+        foodOrderList.add(foodOrder);
+        User currentUser = userDetailService.getCurrentUser();
+        currentUser.setFoodOrderList(foodOrderList);
+       User user = userService.save(currentUser);
+        return new ResponseEntity<>(user,HttpStatus.OK);
     }
 }
