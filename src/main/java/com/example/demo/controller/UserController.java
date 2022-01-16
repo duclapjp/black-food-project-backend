@@ -2,6 +2,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.response.ResponMessage;
 import com.example.demo.model.*;
 import com.example.demo.security.userprincal.UserDetailService;
+import com.example.demo.service.extend.IRestaurantService;
 import com.example.demo.service.extend.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,9 @@ public class UserController {
 
     @Autowired
     private UserDetailService userDetailService;
+
+    @Autowired
+    private IRestaurantService restaurantService;
 
     @GetMapping
     public ResponseEntity<List<User>> findAll() {
@@ -98,13 +102,22 @@ public class UserController {
             return new ResponseEntity<>(user,HttpStatus.OK);
         }
         else {
+//            th neu co 1 order status 4
             for (FoodOrder foodOrder: foodOrderList) {
                 if (foodOrder.getGeneralStatus().getId() == 4){
                     List<Food> foodList =  foodOrder.getFood();
                    foodList.add(food);
                    foodOrder.setFood(foodList);
+                    currentUser.setFoodOrderList(foodOrderList);
+                    User user = userService.save(currentUser);
+                    return new ResponseEntity<>(user, HttpStatus.OK);
                 }
             }
+//            th list order khong rong nhung kco order nao status 4
+            List<Food> foodList = new ArrayList<>();
+            foodList.add(food);
+            FoodOrder foodOrder = new FoodOrder(LocalDateTime.now(),0.0,null,new GeneralStatus(4L),foodList,currentUser, food.getRestaurant());
+            foodOrderList.add(foodOrder);
             currentUser.setFoodOrderList(foodOrderList);
             User user = userService.save(currentUser);
             return new ResponseEntity<>(user, HttpStatus.OK);
@@ -147,8 +160,30 @@ public class UserController {
         Double totalPrice = payment.getTotalPrice();
         if (amount>= totalPrice){
             amount -= totalPrice;
+            //        tru tien trong tai khoan user
             user.setAmount(amount);
+//            chuyen status cua order thanh done
+            List<FoodOrder> foodOrderList = new ArrayList<>();
+            foodOrderList = user.getFoodOrderList();
+            for (FoodOrder fo : foodOrderList
+            ) {
+                if (fo.getGeneralStatus().getId() == 4) {
+                    fo.setGeneralStatus(new GeneralStatus(5L));
+                    // cong tien cua food tuong ung vao cua hang
+                    for (Food f: fo.getFood()) {
+                        Restaurant restaurant = restaurantService.findById(f.getRestaurant().getId()).get();
+                        Double interest = f.getPrice();
+                        restaurant.setRevenue(restaurant.getRevenue()+interest);
+                        restaurantService.save(restaurant);
+                    }
+                }
+
+
+
+            }
+            user.setFoodOrderList(foodOrderList);
             User user1 =userService.save(user);
+
             return new ResponseEntity<>(user1,HttpStatus.OK);
         }
         else {
