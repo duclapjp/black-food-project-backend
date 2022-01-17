@@ -43,8 +43,4 @@ public class FoodOrderService implements IFoodOrderService {
         return foodOrderRepository.findAllByUser_Id(id);
     }
 
-    @Override
-    public List<FoodOrder> findFoodOrderByRestaurant_Id(Long id) {
-        return foodOrderRepository.findFoodOrderByRestaurant_Id(id);
-    }
 }

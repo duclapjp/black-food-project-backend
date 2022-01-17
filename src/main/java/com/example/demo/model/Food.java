@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import org.hibernate.annotations.NaturalId;
 
@@ -29,6 +30,7 @@ public class Food {
     private String image;
 
     @ManyToOne(fetch = FetchType.EAGER,targetEntity = Restaurant.class)
+    @JsonBackReference
     private Restaurant restaurant;
 
     @ManyToOne(fetch = FetchType.EAGER,targetEntity = FoodOrder.class)

@@ -30,22 +30,24 @@ public class FoodOrder {
     @JsonBackReference
     private User user;
 
-    @ManyToOne(targetEntity =  Restaurant.class)
-    private Restaurant restaurant;
+
+//    @ManyToOne(targetEntity =  Restaurant.class)
+//    private Restaurant restaurant;
 //    private Long restaurantId;
 
     public FoodOrder() {
     }
 
-    public FoodOrder(LocalDateTime time, Double totalPrice, String note, GeneralStatus generalStatus, List<Food> food, User user, Restaurant restaurant) {
+    public FoodOrder(LocalDateTime time, Double totalPrice, String note, GeneralStatus generalStatus, List<Food> food, User user) {
         this.time = time;
         this.totalPrice = totalPrice;
         this.note = note;
         this.generalStatus = generalStatus;
         this.food = food;
         this.user = user;
-        this.restaurant = restaurant;
     }
+
+
 
     public Long getId() {
         return id;
@@ -94,14 +96,6 @@ public class FoodOrder {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
     }
 
     public List<Food> getFood() {

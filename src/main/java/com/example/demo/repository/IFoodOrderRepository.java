@@ -15,5 +15,4 @@ public interface IFoodOrderRepository  extends JpaRepository<FoodOrder,Long> {
 //    @Query(value = "select fo.*,r.name as restaurantName, r.address as restaurantAddress from food_order fo join restaurant r on fo.restaurant_id = r.id where r.id = :id ;",nativeQuery = true)
 //    List<FoodOrder> findFoodOrderByRestaurant_Id(@Param("id") Long id);
 
-    List<FoodOrder> findFoodOrderByRestaurant_Id(Long id);
 }

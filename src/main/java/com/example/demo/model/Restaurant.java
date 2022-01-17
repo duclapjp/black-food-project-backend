@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,16 +25,17 @@ public class Restaurant {
     private Long userId;
 
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     List<FoodOrder> foodOrderList;
 
     @ManyToOne(targetEntity = GeneralStatus.class)
+    @JsonBackReference
     private GeneralStatus status;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     List<Coupon> couponList;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     List<Food>foodList;
 
     public Restaurant() {

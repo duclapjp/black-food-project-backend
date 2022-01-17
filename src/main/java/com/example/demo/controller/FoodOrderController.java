@@ -69,9 +69,4 @@ public class FoodOrderController {
         List<FoodOrder> foodOrderList  = foodOrderService.findAllByUser_Id(id);
         return new ResponseEntity<>(foodOrderList,HttpStatus.OK);
     }
-    @GetMapping("/restaurant/{id}")
-    public ResponseEntity<List<FoodOrder>> findAllByRestaurantId(@PathVariable Long id){
-        List<FoodOrder> foodOrderList = foodOrderService.findFoodOrderByRestaurant_Id(id);
-        return new ResponseEntity<>(foodOrderList,HttpStatus.OK);
-    }
 }

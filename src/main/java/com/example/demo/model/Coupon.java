@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +17,7 @@ public class Coupon {
     private GeneralStatus status;
 
     @ManyToOne(targetEntity = Restaurant.class)
+    @JsonBackReference
     private Restaurant restaurant;
 
     public Coupon() {

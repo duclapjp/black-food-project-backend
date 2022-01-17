@@ -95,7 +95,7 @@ public class UserController {
         if (foodOrderList.isEmpty()){
             List<Food> foodList = new ArrayList<>();
             foodList.add(food);
-            FoodOrder foodOrder = new FoodOrder(LocalDateTime.now(),0.0,null,new GeneralStatus(4L),foodList,currentUser, food.getRestaurant());
+            FoodOrder foodOrder = new FoodOrder(LocalDateTime.now(),0.0,null,new GeneralStatus(4L),foodList,currentUser);
            foodOrderList.add(foodOrder);
            currentUser.setFoodOrderList(foodOrderList);
             User user = userService.save(currentUser);
@@ -116,7 +116,7 @@ public class UserController {
 //            th list order khong rong nhung kco order nao status 4
             List<Food> foodList = new ArrayList<>();
             foodList.add(food);
-            FoodOrder foodOrder = new FoodOrder(LocalDateTime.now(),0.0,null,new GeneralStatus(4L),foodList,currentUser, food.getRestaurant());
+            FoodOrder foodOrder = new FoodOrder(LocalDateTime.now(),0.0,null,new GeneralStatus(4L),foodList,currentUser);
             foodOrderList.add(foodOrder);
             currentUser.setFoodOrderList(foodOrderList);
             User user = userService.save(currentUser);
