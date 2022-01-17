@@ -64,6 +64,7 @@ public class AuthController {
             return new ResponseEntity<>(new ResponMessage("Verify Account is Success, Please login to Use!"),HttpStatus.OK);
         }
     }
+
     @PostMapping("/signup")
     public ResponseEntity<?> register(@Valid @RequestBody SignUpForm signUpForm){
         if(userService.existsByUsername(signUpForm.getUsername())){
