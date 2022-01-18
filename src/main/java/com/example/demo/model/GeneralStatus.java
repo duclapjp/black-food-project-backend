@@ -16,8 +16,6 @@ public class GeneralStatus {
     @OneToMany(fetch = FetchType.LAZY, targetEntity = Coupon.class, cascade = CascadeType.ALL)
     List<Coupon> couponList;
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = Restaurant.class, cascade = CascadeType.ALL)
-    List<Restaurant> restaurantList;
 
     @OneToMany
     List<Message> messageList;
@@ -59,13 +57,6 @@ public class GeneralStatus {
         this.couponList = couponList;
     }
 
-    public List<Restaurant> getRestaurantList() {
-        return restaurantList;
-    }
-
-    public void setRestaurantList(List<Restaurant> restaurantList) {
-        this.restaurantList = restaurantList;
-    }
 
     public List<Message> getMessageList() {
         return messageList;

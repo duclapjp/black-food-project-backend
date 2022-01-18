@@ -40,7 +40,7 @@ public class FoodOrderService implements IFoodOrderService {
 
     @Override
     public List<FoodOrder> findAllByUser_Id(Long id) {
-        return foodOrderRepository.findAllByUser_Id(id);
+        return foodOrderRepository.findAllByUserId(id);
     }
 
 }

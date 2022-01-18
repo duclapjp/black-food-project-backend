@@ -45,14 +45,14 @@ public class FoodOrderController {
         foodList.add(foodOptional1.get());
         foodList.add(foodOptional2.get());
         foodList.add(foodOptional.get());
-        foodOrder.setFood(foodList);
+        foodOrder.setFoodList(foodList);
         return new ResponseEntity<>(foodOrderService.save(foodOrder),HttpStatus.CREATED);
     }
     @PutMapping("/{foodOrderId}/{foodId}")
     public ResponseEntity<?> addFoodIntoFoodOrder(@PathVariable Long foodOrderId, @PathVariable Long foodId){
         FoodOrder foodOrder = foodOrderService.findById(foodOrderId).get();
         Optional<Food> foodOptional = foodService.findById(foodId);
-        foodOrder.getFood().add(foodOptional.get());
+        foodOrder.getFoodList().add(foodOptional.get());
         return  new ResponseEntity<>(foodOrderService.save(foodOrder),HttpStatus.OK);
     }
     @PutMapping

@@ -89,13 +89,13 @@ public class UserController {
     }
     @PutMapping("/addFood")
     public ResponseEntity<?> addFood(@RequestBody Food food){
-        food.setCode(Math.round(Math.random()*10000L));
         User currentUser = userDetailService.getCurrentUser();
+        Long userId = currentUser.getId();
         List<FoodOrder> foodOrderList = currentUser.getFoodOrderList();
         if (foodOrderList.isEmpty()){
             List<Food> foodList = new ArrayList<>();
             foodList.add(food);
-            FoodOrder foodOrder = new FoodOrder(LocalDateTime.now(),0.0,null,new GeneralStatus(4L),foodList,currentUser);
+            FoodOrder foodOrder = new FoodOrder(LocalDateTime.now(),0.0,null,new GeneralStatus(4L),foodList,userId);
            foodOrderList.add(foodOrder);
            currentUser.setFoodOrderList(foodOrderList);
             User user = userService.save(currentUser);
@@ -105,9 +105,9 @@ public class UserController {
 //            th neu co 1 order status 4
             for (FoodOrder foodOrder: foodOrderList) {
                 if (foodOrder.getGeneralStatus().getId() == 4){
-                    List<Food> foodList =  foodOrder.getFood();
+                    List<Food> foodList =  foodOrder.getFoodList();
                    foodList.add(food);
-                   foodOrder.setFood(foodList);
+                   foodOrder.setFoodList(foodList);
                     currentUser.setFoodOrderList(foodOrderList);
                     User user = userService.save(currentUser);
                     return new ResponseEntity<>(user, HttpStatus.OK);
@@ -116,7 +116,7 @@ public class UserController {
 //            th list order khong rong nhung kco order nao status 4
             List<Food> foodList = new ArrayList<>();
             foodList.add(food);
-            FoodOrder foodOrder = new FoodOrder(LocalDateTime.now(),0.0,null,new GeneralStatus(4L),foodList,currentUser);
+            FoodOrder foodOrder = new FoodOrder(LocalDateTime.now(),0.0,null,new GeneralStatus(4L),foodList,userId);
             foodOrderList.add(foodOrder);
             currentUser.setFoodOrderList(foodOrderList);
             User user = userService.save(currentUser);
@@ -146,7 +146,7 @@ public class UserController {
         for (FoodOrder fo : foodOrderList
         ) {
             if (fo.getGeneralStatus().getId() == 4) {
-              fo.setFood(foodList);
+              fo.setFoodList(foodList);
             }
         }
         user.setFoodOrderList(foodOrderList);
@@ -170,8 +170,8 @@ public class UserController {
                 if (fo.getGeneralStatus().getId() == 4) {
                     fo.setGeneralStatus(new GeneralStatus(5L));
                     // cong tien cua food tuong ung vao cua hang
-                    for (Food f: fo.getFood()) {
-                        Restaurant restaurant = restaurantService.findById(f.getRestaurant().getId()).get();
+                    for (Food f: fo.getFoodList()) {
+                        Restaurant restaurant = restaurantService.findById(f.getRestaurantId()).get();
                         Double interest = f.getPrice();
                         restaurant.setRevenue(restaurant.getRevenue()+interest);
                         restaurantService.save(restaurant);

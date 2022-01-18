@@ -1,4 +1,5 @@
 package com.example.demo.model;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="food_order")
+@Table(name = "food_order")
 public class FoodOrder {
 
     @Id
@@ -22,32 +23,23 @@ public class FoodOrder {
     private GeneralStatus generalStatus;
 
 
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = Food.class)
-//    @Column( unique = false, nullable = false)
-    private List<Food> food = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Food> foodList;
 
-    @ManyToOne(fetch = FetchType.EAGER,targetEntity = User.class)
-    @JsonBackReference
-    private User user;
+    private Long userId;
 
-
-//    @ManyToOne(targetEntity =  Restaurant.class)
-//    private Restaurant restaurant;
-//    private Long restaurantId;
 
     public FoodOrder() {
     }
 
-    public FoodOrder(LocalDateTime time, Double totalPrice, String note, GeneralStatus generalStatus, List<Food> food, User user) {
+    public FoodOrder(LocalDateTime time, Double totalPrice, String note, GeneralStatus generalStatus, List<Food> foodList, Long userId) {
         this.time = time;
         this.totalPrice = totalPrice;
         this.note = note;
         this.generalStatus = generalStatus;
-        this.food = food;
-        this.user = user;
+        this.foodList = foodList;
+        this.userId = userId;
     }
-
-
 
     public Long getId() {
         return id;
@@ -90,19 +82,19 @@ public class FoodOrder {
         this.generalStatus = generalStatus;
     }
 
-    public User getUser() {
-        return user;
+    public List<Food> getFoodList() {
+        return foodList;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setFoodList(List<Food> foodList) {
+        this.foodList = foodList;
     }
 
-    public List<Food> getFood() {
-        return food;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setFood(List<Food> food) {
-        this.food = food;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

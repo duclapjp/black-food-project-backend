@@ -1,7 +1,5 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
 
 @Entity
@@ -16,25 +14,11 @@ public class Coupon {
     @ManyToOne(targetEntity = GeneralStatus.class)
     private GeneralStatus status;
 
-    @ManyToOne(targetEntity = Restaurant.class)
-    @JsonBackReference
-    private Restaurant restaurant;
+    private Long restaurantId;
 
     public Coupon() {
     }
 
-    public Coupon(String name, GeneralStatus status, Restaurant restaurant) {
-        this.name = name;
-        this.status = status;
-        this.restaurant = restaurant;
-    }
-
-    public Coupon(Long id, String name, GeneralStatus status, Restaurant restaurant) {
-        this.id = id;
-        this.name = name;
-        this.status = status;
-        this.restaurant = restaurant;
-    }
 
     public Long getId() {
         return id;
@@ -60,11 +44,4 @@ public class Coupon {
         this.status = status;
     }
 
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-    }
 }

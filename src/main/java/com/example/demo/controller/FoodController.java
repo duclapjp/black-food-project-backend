@@ -23,6 +23,7 @@ public class FoodController {
 
     @GetMapping
     public ResponseEntity<List<Food>> findAll() {
+
         return new ResponseEntity<>(foodService.findAll(), HttpStatus.OK);
     }
 
