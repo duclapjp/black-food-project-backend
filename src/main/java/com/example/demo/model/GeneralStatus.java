@@ -13,15 +13,6 @@ public class GeneralStatus {
 
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = Coupon.class, cascade = CascadeType.ALL)
-    List<Coupon> couponList;
-
-
-    @OneToMany
-    List<Message> messageList;
-
-    @OneToMany
-    List<User> userList;
 
     @OneToMany
     List<Role> roles;
@@ -49,30 +40,6 @@ public class GeneralStatus {
         this.name = name;
     }
 
-    public List<Coupon> getCouponList() {
-        return couponList;
-    }
-
-    public void setCouponList(List<Coupon> couponList) {
-        this.couponList = couponList;
-    }
-
-
-    public List<Message> getMessageList() {
-        return messageList;
-    }
-
-    public void setMessageList(List<Message> messageList) {
-        this.messageList = messageList;
-    }
-
-    public List<User> getUserList() {
-        return userList;
-    }
-
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
 
     public List<Role> getRoles() {
         return roles;

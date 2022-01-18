@@ -92,4 +92,5 @@ public class Food {
     public void setRestaurantId(Long restaurantId) {
         this.restaurantId = restaurantId;
     }
+
 }
