@@ -33,7 +33,11 @@ public class CouponService implements ICouponService {
 
     @Override
     public void remove(Long id) {
-
         couponRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Coupon> findAllByRestaurantId(Long restaurantId) {
+        return couponRepository.findAllByRestaurantId(restaurantId);
     }
 }

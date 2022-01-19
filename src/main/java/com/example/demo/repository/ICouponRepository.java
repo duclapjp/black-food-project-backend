@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface ICouponRepository extends JpaRepository<Coupon,Long> {
-    List<Coupon> findAllByRestaurantId(Long id);
+List<Coupon> findAllByRestaurantId(Long restaurantId);
 }
