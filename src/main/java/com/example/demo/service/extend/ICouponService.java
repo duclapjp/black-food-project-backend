@@ -6,4 +6,5 @@ import com.example.demo.service.IGeneralService;
 import java.util.List;
 
 public interface ICouponService extends IGeneralService<Coupon> {
+    List<Coupon> findAllByRestaurantId(Long restaurantId);
 }

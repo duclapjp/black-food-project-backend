@@ -16,6 +16,11 @@ public class Coupon {
 
     private Long restaurantId;
 
+    private int price;
+
+    private Long quantity;
+
+
     public Coupon() {
     }
 
@@ -44,4 +49,28 @@ public class Coupon {
         this.status = status;
     }
 
+    public Long getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(Long restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public Long getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Long quantity) {
+        this.quantity = quantity;
+    }
 }
