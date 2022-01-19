@@ -21,6 +21,8 @@ public class Restaurant {
 
     private Double revenue;
 
+    private String image;
+
     private Long userId;
 
     @ManyToOne(targetEntity = GeneralStatus.class)
@@ -123,6 +125,14 @@ public class Restaurant {
 
     public List<FoodOrder> getFoodOrderList() {
         return foodOrderList;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public void setFoodOrderList(List<FoodOrder> foodOrderList) {
