@@ -17,4 +17,20 @@ public class RoleServiceImpl implements IRoleService {
     public Optional<Role> findByName(RoleName name) {
         return roleRepository.findByName(name);
     }
+
+    @Override
+    public Role save(Role role) {
+        return roleRepository.save(role);
+    }
+
+    @Override
+    public Optional<Role> findById(Long id) {
+        return roleRepository.findById(id);
+    }
+
+    @Override
+    public void remove(Long id) {
+
+        roleRepository.deleteById(id);
+    }
 }

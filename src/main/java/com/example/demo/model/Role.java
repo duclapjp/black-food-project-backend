@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -11,12 +12,15 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Enumerated(EnumType.STRING)
-    @NaturalId
     @Column(length = 60)
     private RoleName name;
 
     @ManyToOne(targetEntity = GeneralStatus.class)
     private GeneralStatus status;
+
+    @ManyToOne(targetEntity = User.class)
+    @JsonBackReference
+    private User user;
 
     public Role() {
     }
@@ -25,6 +29,17 @@ public class Role {
         this.id = id;
         this.name = name;
         this.status = status;
+    }
+
+    public Role(RoleName name, GeneralStatus status) {
+        this.name = name;
+        this.status = status;
+    }
+
+    public Role(RoleName name, GeneralStatus status, User user) {
+        this.name = name;
+        this.status = status;
+        this.user = user;
     }
 
     public Long getId() {
@@ -50,4 +65,13 @@ public class Role {
     public void setStatus(GeneralStatus status) {
         this.status = status;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }
