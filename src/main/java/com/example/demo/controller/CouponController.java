@@ -42,4 +42,9 @@ public class CouponController {
         couponService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/restaurant/{restaurantId}")
+    public ResponseEntity<List<Coupon>> findAllByRestaurantId(@PathVariable Long restaurantId) {
+        return new ResponseEntity<>(couponService.findAllByRestaurantId(restaurantId), HttpStatus.OK);
+    }
 }
