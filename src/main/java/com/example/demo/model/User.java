@@ -71,7 +71,7 @@ public class User {
 
     private Long restaurantId;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     Set<Role> roles = new HashSet<>();
@@ -86,6 +86,14 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public User(String name, String username, String email, String password, String avatar) {
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.avatar = avatar;
     }
 
     public User(Long id, String name, String username, String email, String password, String avatar, LocalDate dob, String phone, String address, Double amount, Long point, GeneralStatus status, List<FoodOrder> foodOrderList, List<Message> messageList, Long restaurantId, Set<Role> roles) {

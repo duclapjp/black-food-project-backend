@@ -14,14 +14,7 @@ public class SignUpForm {
 
     public SignUpForm() {
     }
-    public SignUpForm(String name, String username, String email, String password, String avatar, Set<String> roles) {
-        this.name = name;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.avatar = avatar;
-        this.roles = roles;
-    }
+
 
     public SignUpForm(String name, String username, String email, String password, String avatar) {
         this.name = name;
