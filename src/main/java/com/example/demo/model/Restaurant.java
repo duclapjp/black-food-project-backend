@@ -1,8 +1,9 @@
 package com.example.demo.model;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,41 +25,27 @@ public class Restaurant {
 
     private Long userId;
 
-
-    @OneToMany
-    List<FoodOrder> foodOrderList;
-
     @ManyToOne(targetEntity = GeneralStatus.class)
     private GeneralStatus status;
 
-    @OneToMany
-    List<Coupon> couponList;
+    @OneToMany(cascade = {CascadeType.ALL})
+    private List<Coupon> couponList;
 
     @OneToMany
-    List<Food>foodList;
+    private List<Food> foodList;
 
     public Restaurant() {
     }
 
-    public Restaurant(Long id, String name, String address, String claim, Double revenue, GeneralStatus status, List<Coupon> couponList, List<Food> foodList) {
-        this.id = id;
+    public Restaurant(String name, String address, String claim, Double revenue, Long userId, List<Food> foodList, GeneralStatus status, List<Coupon> couponList) {
         this.name = name;
         this.address = address;
         this.claim = claim;
         this.revenue = revenue;
+        this.userId = userId;
+        this.foodList = foodList;
         this.status = status;
         this.couponList = couponList;
-        this.foodList = foodList;
-    }
-
-    public Restaurant(String name, String address, String claim, Double revenue, GeneralStatus status, List<Coupon> couponList, List<Food> foodList) {
-        this.name = name;
-        this.address = address;
-        this.claim = claim;
-        this.revenue = revenue;
-        this.status = status;
-        this.couponList = couponList;
-        this.foodList = foodList;
     }
 
     public Long getUserId() {
@@ -131,13 +118,5 @@ public class Restaurant {
 
     public void setFoodList(List<Food> foodList) {
         this.foodList = foodList;
-    }
-
-    public List<FoodOrder> getFoodOrderList() {
-        return foodOrderList;
-    }
-
-    public void setFoodOrderList(List<FoodOrder> foodOrderList) {
-        this.foodOrderList = foodOrderList;
     }
 }

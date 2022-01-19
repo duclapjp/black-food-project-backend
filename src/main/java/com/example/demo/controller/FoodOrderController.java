@@ -1,5 +1,4 @@
 package com.example.demo.controller;
-
 import com.example.demo.model.Food;
 import com.example.demo.model.FoodOrder;
 import com.example.demo.service.extend.IFoodOrderService;
@@ -8,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -45,14 +42,14 @@ public class FoodOrderController {
         foodList.add(foodOptional1.get());
         foodList.add(foodOptional2.get());
         foodList.add(foodOptional.get());
-        foodOrder.setFood(foodList);
+        foodOrder.setFoodList(foodList);
         return new ResponseEntity<>(foodOrderService.save(foodOrder),HttpStatus.CREATED);
     }
     @PutMapping("/{foodOrderId}/{foodId}")
     public ResponseEntity<?> addFoodIntoFoodOrder(@PathVariable Long foodOrderId, @PathVariable Long foodId){
         FoodOrder foodOrder = foodOrderService.findById(foodOrderId).get();
         Optional<Food> foodOptional = foodService.findById(foodId);
-        foodOrder.getFood().add(foodOptional.get());
+        foodOrder.getFoodList().add(foodOptional.get());
         return  new ResponseEntity<>(foodOrderService.save(foodOrder),HttpStatus.OK);
     }
     @PutMapping
@@ -67,11 +64,6 @@ public class FoodOrderController {
     @GetMapping("/orderList/{id}")
     public ResponseEntity<List<FoodOrder>> findAllFoodOrderByUser_Id(@PathVariable Long id){
         List<FoodOrder> foodOrderList  = foodOrderService.findAllByUser_Id(id);
-        return new ResponseEntity<>(foodOrderList,HttpStatus.OK);
-    }
-    @GetMapping("/restaurant/{id}")
-    public ResponseEntity<List<FoodOrder>> findAllByRestaurantId(@PathVariable Long id){
-        List<FoodOrder> foodOrderList = foodOrderService.findFoodOrderByRestaurant_Id(id);
         return new ResponseEntity<>(foodOrderList,HttpStatus.OK);
     }
 }

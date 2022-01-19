@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.NaturalId;
 
@@ -15,9 +17,6 @@ public class Food {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NaturalId
-    private Long code;
-
     private String name;
 
     private Double price;
@@ -28,11 +27,7 @@ public class Food {
 
     private String image;
 
-    @ManyToOne(fetch = FetchType.EAGER,targetEntity = Restaurant.class)
-    private Restaurant restaurant;
-
-    @ManyToOne(fetch = FetchType.EAGER,targetEntity = FoodOrder.class)
-    private FoodOrder foodOrder;
+    private Long restaurantId;
 
     public Food() {
     }
@@ -41,29 +36,6 @@ public class Food {
         this.id = id;
     }
 
-
-    public Food(Long code, String name, Double price, Long quantity, String description, String image, Restaurant restaurant, FoodOrder foodOrder) {
-        this.code = code;
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
-        this.description = description;
-        this.image = image;
-        this.restaurant = restaurant;
-        this.foodOrder = foodOrder;
-    }
-
-    public Food(Long id, Long code, String name, Double price, Long quantity, String description, String image, Restaurant restaurant, FoodOrder foodOrder) {
-        this.id = id;
-        this.code = code;
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
-        this.description = description;
-        this.image = image;
-        this.restaurant = restaurant;
-        this.foodOrder = foodOrder;
-    }
 
     public Long getId() {
         return id;
@@ -113,27 +85,12 @@ public class Food {
         this.image = image;
     }
 
-    public Restaurant getRestaurant() {
-        return restaurant;
+    public Long getRestaurantId() {
+        return restaurantId;
     }
 
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
+    public void setRestaurantId(Long restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
-    public FoodOrder getFoodOrder() {
-        return foodOrder;
-    }
-
-    public void setFoodOrder(FoodOrder foodOrder) {
-        this.foodOrder = foodOrder;
-    }
-
-    public Long getCode() {
-        return code;
-    }
-
-    public void setCode(Long code) {
-        this.code = code;
-    }
 }

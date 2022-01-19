@@ -7,5 +7,4 @@ import java.util.Map;
 
 public interface IFoodOrderService extends IGeneralService<FoodOrder> {
         List<FoodOrder> findAllByUser_Id(Long id);
-        List<FoodOrder> findFoodOrderByRestaurant_Id(Long id);
 }

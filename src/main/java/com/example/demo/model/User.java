@@ -1,10 +1,5 @@
 package com.example.demo.model;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 import org.hibernate.annotations.NaturalId;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -68,14 +63,13 @@ public class User {
     @ManyToOne(targetEntity = GeneralStatus.class)
     private GeneralStatus status;
 
-    private Long restaurantId;
-
     @OneToMany(cascade = {CascadeType.ALL})
     private List<FoodOrder> foodOrderList;
 
     @OneToMany
     private List<Message> messageList;
 
+    private Long restaurantId;
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
@@ -102,7 +96,7 @@ public class User {
         this.avatar = avatar;
     }
 
-    public User(Long id, String name, String username, String email, String password, String avatar, LocalDate dob, String phone, String address, Double amount, Long point, GeneralStatus status, Long restaurantId, List<FoodOrder> foodOrderList, List<Message> messageList, Set<Role> roles) {
+    public User(Long id, String name, String username, String email, String password, String avatar, LocalDate dob, String phone, String address, Double amount, Long point, GeneralStatus status, List<FoodOrder> foodOrderList, List<Message> messageList, Long restaurantId, Set<Role> roles) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -115,9 +109,9 @@ public class User {
         this.amount = amount;
         this.point = point;
         this.status = status;
-        this.restaurantId = restaurantId;
         this.foodOrderList = foodOrderList;
         this.messageList = messageList;
+        this.restaurantId = restaurantId;
         this.roles = roles;
     }
 
@@ -217,14 +211,6 @@ public class User {
         this.status = status;
     }
 
-    public Long getRestaurantId() {
-        return restaurantId;
-    }
-
-    public void setRestaurantId(Long restaurantId) {
-        this.restaurantId = restaurantId;
-    }
-
     public List<FoodOrder> getFoodOrderList() {
         return foodOrderList;
     }
@@ -247,5 +233,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Long getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(Long restaurantId) {
+        this.restaurantId = restaurantId;
     }
 }
