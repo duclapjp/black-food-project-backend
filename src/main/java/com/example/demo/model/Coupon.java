@@ -16,8 +16,6 @@ public class Coupon {
 
     private Long restaurantId;
 
-    private String image;
-
     private int price;
 
     private Long quantity;
@@ -59,13 +57,6 @@ public class Coupon {
         this.restaurantId = restaurantId;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
 
     public int getPrice() {
         return price;
