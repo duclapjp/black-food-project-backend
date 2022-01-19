@@ -28,6 +28,8 @@ public class FoodOrder {
 
     private Long userId;
 
+//    private Long restaurantId;
+
 
     public FoodOrder() {
     }

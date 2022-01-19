@@ -105,8 +105,6 @@ public class AuthController {
                     Role adminRole = roleService.findByName(RoleName.ADMIN).orElseThrow(
                             ()-> new RuntimeException("Role not found")
                     );
-
-
 //                    Role adminRole = roleService.save(new Role(RoleName.ADMIN, new GeneralStatus(1L)));
                     roles.add(adminRole);
                     break;
@@ -160,7 +158,11 @@ public class AuthController {
 //
         for (Role r : userLogin.getRoles()
         ) {
-            if (r.getName().equals(RoleName.USER)) {
+            if (r.getName().equals(RoleName.ADMIN)){
+                String token = jwtProvider.createToken(authentication);
+                return ResponseEntity.ok(new JwtResponse(userPrinciple.getId(), token, userPrinciple.getName(), userPrinciple.getAvatar(), userPrinciple.getAuthorities()));
+            }
+            else if (r.getName().equals(RoleName.USER)) {
                 Long checkId = r.getStatus().getId();
                 if (checkId == 1) {
                     return new ResponseEntity<>(new ResponMessage("Need to verification account, Please check your email!"), HttpStatus.OK);
@@ -171,6 +173,7 @@ public class AuthController {
                     return new ResponseEntity<>(new ResponMessage("Your account was blocked!"), HttpStatus.OK);
                 }
             }
+
         }
         return new ResponseEntity<>(new ResponMessage("Tai khoan bi loi"), HttpStatus.OK);
     }

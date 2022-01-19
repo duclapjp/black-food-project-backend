@@ -32,6 +32,9 @@ public class Restaurant {
     @OneToMany
     private List<Food> foodList;
 
+    @OneToMany
+    private List<FoodOrder> foodOrderList;
+
     public Restaurant() {
     }
 
@@ -116,5 +119,13 @@ public class Restaurant {
 
     public void setFoodList(List<Food> foodList) {
         this.foodList = foodList;
+    }
+
+    public List<FoodOrder> getFoodOrderList() {
+        return foodOrderList;
+    }
+
+    public void setFoodOrderList(List<FoodOrder> foodOrderList) {
+        this.foodOrderList = foodOrderList;
     }
 }
