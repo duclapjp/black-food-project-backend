@@ -51,6 +51,12 @@ public class Restaurant {
         this.couponList = couponList;
     }
 
+    public Restaurant(String name, String address, String image) {
+        this.name = name;
+        this.address = address;
+        this.image = image;
+    }
+
     public Long getUserId() {
         return userId;
     }
