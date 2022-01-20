@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.FoodOrder;
 import com.example.demo.model.Restaurant;
 import com.example.demo.service.extend.IRestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,5 +42,17 @@ public class RestaurantController {
     public ResponseEntity<?> remove(@PathVariable Long id) {
         restaurantService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("/bookingFO/{resId}")
+    public ResponseEntity<List<FoodOrder>> bookingFOList(@PathVariable Long resId){
+        Restaurant restaurant = restaurantService.findById(resId).get();
+        List<FoodOrder> foodOrderListOfRes = restaurant.getFoodOrderList();
+        List<FoodOrder>foodOrderBookingListOfRes = new ArrayList<>();
+        for (FoodOrder fo: foodOrderListOfRes) {
+            if (fo.getGeneralStatus().getId() == 5) {
+                foodOrderBookingListOfRes.add(fo);
+            }
+        }
+        return new ResponseEntity<>(foodOrderBookingListOfRes, HttpStatus.OK);
     }
 }

@@ -124,7 +124,7 @@ public class UserController {
         }
     }
     @GetMapping("/currentFO")
-    public ResponseEntity<FoodOrder> showCurrentFO() {
+    public ResponseEntity<?> showCurrentFO() {
         User user = userDetailService.getCurrentUser();
         List<FoodOrder> foodOrderList = new ArrayList<>();
         foodOrderList = user.getFoodOrderList();
@@ -135,8 +135,12 @@ public class UserController {
                 foodOrder = fo;
                 return new ResponseEntity<>(foodOrder, HttpStatus.OK);
             }
+            else if (fo.getGeneralStatus().getId() == 5){
+                foodOrder = fo;
+                return new ResponseEntity<>(foodOrder, HttpStatus.OK);
+            }
         }
-        return new ResponseEntity<>(foodOrder, HttpStatus.OK);
+        return new ResponseEntity<>(new ResponMessage("no order"), HttpStatus.OK);
     }
     @PutMapping("/updateFoodList")
     public ResponseEntity<User> updateFoodList(@RequestBody List<Food> foodList){
@@ -152,6 +156,69 @@ public class UserController {
         user.setFoodOrderList(foodOrderList);
         userService.save(user);
         return new ResponseEntity<>(user,HttpStatus.OK);
+    }
+    @GetMapping("/bookingOrder")
+    public ResponseEntity<?> bookingOrder(){
+        Long resId = 0L;
+        User user = userDetailService.getCurrentUser();
+        List<FoodOrder> foodOrderList = new ArrayList<>();
+        foodOrderList = user.getFoodOrderList();
+        for (FoodOrder fo: foodOrderList) {
+//            Chuyen trang thai inprocess thanh booking
+            if (fo.getGeneralStatus().getId() == 4) {
+                fo.setGeneralStatus(new GeneralStatus(5L));
+                for (Food f: fo.getFoodList()) {
+//                    Lay ra res tuong ung
+                    resId = f.getRestaurantId();
+                    break;
+                }
+                Restaurant restaurant = restaurantService.findById(resId).get();
+//                    Add fo vao res
+                List<FoodOrder> foListOfRes = restaurant.getFoodOrderList();
+                foListOfRes.add(fo);
+                restaurant.setFoodOrderList(foListOfRes);
+                restaurantService.save(restaurant);
+                break;
+            }
+        }
+        user.setFoodOrderList(foodOrderList);
+        User user1 =  userService.save(user);
+        return new ResponseEntity<>(user1, HttpStatus.OK);
+    }
+    @GetMapping("/cancelFO")
+    public ResponseEntity<?>cancelFO(){
+        Long resId = 0L;
+        User user = userDetailService.getCurrentUser();
+        List<FoodOrder> foodOrderListOfUser = new ArrayList<>();
+        foodOrderListOfUser = user.getFoodOrderList();
+        for (FoodOrder fo: foodOrderListOfUser) {
+            if (fo.getGeneralStatus().getId() == 5) {
+//                Thuc hien chuyen doi status fo cua user thanh cancel
+                fo.setGeneralStatus(new GeneralStatus(7L));
+                for (Food f: fo.getFoodList()) {
+                     resId = f.getRestaurantId();
+                     break;
+
+                        }
+                //                    Thuc hien tra ve nha hang tuong ung
+                Restaurant restaurant = restaurantService.findById(resId).get();
+                List<FoodOrder> foOfRes = restaurant.getFoodOrderList();
+                for (FoodOrder resFo: foOfRes) {
+                    if (fo.getId() == resFo.getId()){
+                        resFo.setGeneralStatus(new GeneralStatus(7L));
+                        break;
+                    }
+                }
+                //                            Set lai fo list cua res
+                restaurant.setFoodOrderList(foOfRes);
+                restaurantService.save(restaurant);
+                break;
+            }
+        }
+        //                            Set lai fo list cua user
+        user.setFoodOrderList(foodOrderListOfUser);
+        User user1 = userService.save(user);
+        return new ResponseEntity<>(user1, HttpStatus.OK);
     }
     @PutMapping("/payment")
     public ResponseEntity<?>payment(@RequestBody Payment payment){
