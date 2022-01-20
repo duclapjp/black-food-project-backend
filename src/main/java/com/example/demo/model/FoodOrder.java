@@ -43,6 +43,14 @@ public class FoodOrder {
         this.userId = userId;
     }
 
+    public FoodOrder(Double totalPrice, String note, GeneralStatus generalStatus, List<Food> foodList, Long userId) {
+        this.totalPrice = totalPrice;
+        this.note = note;
+        this.generalStatus = generalStatus;
+        this.foodList = foodList;
+        this.userId = userId;
+    }
+
     public Long getId() {
         return id;
     }

@@ -2,7 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.model.FoodOrder;
 import com.example.demo.model.Restaurant;
+import com.example.demo.model.User;
+import com.example.demo.security.userprincal.UserDetailService;
 import com.example.demo.service.extend.IRestaurantService;
+import com.example.demo.service.extend.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,10 @@ public class RestaurantController {
 
     @Autowired
     private IRestaurantService restaurantService;
+    @Autowired
+    private UserDetailService userDetailService;
+    @Autowired
+    private IUserService userService;
 
     @GetMapping
     public ResponseEntity<List<Restaurant>> findAll(){
@@ -32,7 +39,11 @@ public class RestaurantController {
     }
     @PostMapping
     public ResponseEntity<Restaurant> save(@RequestBody Restaurant restaurant){
-        return new ResponseEntity<>(restaurantService.save(restaurant),HttpStatus.CREATED);
+        Restaurant restaurant1 = restaurantService.save(restaurant);
+        User user = userDetailService.getCurrentUser();
+        user.setRestaurantId(restaurant1.getId());
+        userService.save(user);
+        return new ResponseEntity<>(restaurant1,HttpStatus.CREATED);
     }
     @PutMapping
     public ResponseEntity<Restaurant> update( @RequestBody Restaurant restaurant){
